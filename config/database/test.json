@@ -1,0 +1,9 @@
+{
+    "db": {
+        "user": "cmk-user",
+        "password": "cmk-pass",
+        "host": "localhost",
+        "port": 5433,
+        "database": "forumapi_test"
+    }
+}
