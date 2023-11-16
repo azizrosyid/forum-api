@@ -307,8 +307,15 @@ describe('CommentRepositoryPostgres', () => {
       expect(comments[1]).toHaveProperty('username');
       expect(comments[1]).toHaveProperty('date');
 
-      // Test against DetailComment
-      expect(comments[0]).toStrictEqual(new DetailComment({
+      const firstCommentDB = comments.find(
+        (comment) => comment.id === firstComment.id,
+      );
+
+      const secondCommentDB = comments.find(
+        (comment) => comment.id === secondComment.id,
+      );
+
+      expect(secondCommentDB).toStrictEqual(new DetailComment({
         id: secondComment.id,
         content: secondComment.content,
         username: secondComment.username,
@@ -316,8 +323,7 @@ describe('CommentRepositoryPostgres', () => {
         is_deleted: true,
       }));
 
-      // Test against DetailComment
-      expect(comments[1]).toStrictEqual(new DetailComment({
+      expect(firstCommentDB).toStrictEqual(new DetailComment({
         id: firstComment.id,
         content: firstComment.content,
         username: firstComment.username,
