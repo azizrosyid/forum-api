@@ -10,7 +10,7 @@ describe('DeleteAuthenticationUseCase', () => {
     // Action & Assert
     await expect(deleteAuthenticationUseCase.execute(useCasePayload))
       .rejects
-      .toThrowError('DELETE_AUTHENTICATION_USE_CASE.NOT_CONTAIN_REFRESH_TOKEN');
+      .toThrowError('DELETE_AUTHENTICATION_USE_CASE.NOT_CONTAIN_REFRESH_TOKENS');
   });
 
   it('should throw error if refresh token not string', async () => {
