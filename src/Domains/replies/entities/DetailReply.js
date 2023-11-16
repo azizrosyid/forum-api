@@ -22,7 +22,7 @@ class DetailReply {
       typeof id !== 'string'
             || typeof content !== 'string'
             || typeof username !== 'string'
-            || typeof date !== 'string' // Assuming date is stored as a string
+            || date instanceof Date === false
     ) {
       throw new Error('DETAIL_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
