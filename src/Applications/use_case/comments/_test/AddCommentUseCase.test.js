@@ -1,23 +1,23 @@
-const AddedComment = require("../../../../Domains/comments/entities/AddedComment");
-const CommentRepository = require("../../../../Domains/comments/CommentRepository");
-const ThreadRepository = require("../../../../Domains/threads/ThreadRepository");
-const AddCommentUseCase = require("../AddCommentUseCase");
-const NewComment = require("../../../../Domains/comments/entities/NewComment");
+const AddedComment = require('../../../../Domains/comments/entities/AddedComment');
+const CommentRepository = require('../../../../Domains/comments/CommentRepository');
+const ThreadRepository = require('../../../../Domains/threads/ThreadRepository');
+const AddCommentUseCase = require('../AddCommentUseCase');
+const NewComment = require('../../../../Domains/comments/entities/NewComment');
 
-describe("AddUserUseCase", () => {
+describe('AddUserUseCase', () => {
   /**
    * Menguji apakah use case mampu mengoskestrasikan langkah demi langkah dengan benar.
    */
-  it("should orchestrating the add comment action correctly", async () => {
+  it('should orchestrating the add comment action correctly', async () => {
     // Arrange
     const useCasePayload = {
-      owner: "user-123",
-      content: "This is comment content",
-      thread_id: "thread-123",
+      owner: 'user-123',
+      content: 'This is comment content',
+      thread_id: 'thread-123',
     };
 
     const mockAddedComment = new AddedComment({
-      id: "comment-123",
+      id: 'comment-123',
       content: useCasePayload.content,
       owner: useCasePayload.owner,
     });
@@ -45,20 +45,20 @@ describe("AddUserUseCase", () => {
     // Assert
     expect(addedComment).toStrictEqual(
       new AddedComment({
-        id: "comment-123",
+        id: 'comment-123',
         content: useCasePayload.content,
         owner: useCasePayload.owner,
-      })
+      }),
     );
     expect(mockThreadRepository.verifyIsThreadExists).toBeCalledWith(
-      useCasePayload.thread_id
+      useCasePayload.thread_id,
     );
     expect(mockCommentRepository.addComment).toBeCalledWith(
       new NewComment({
         owner: useCasePayload.owner,
         content: useCasePayload.content,
         thread_id: useCasePayload.thread_id,
-      })
+      }),
     );
   });
 });

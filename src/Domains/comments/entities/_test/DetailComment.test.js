@@ -1,24 +1,24 @@
-const DetailComment = require("../DetailComment");
+const DetailComment = require('../DetailComment');
 
-describe("a DetailComment entities", () => {
-  it("should throw error when payload did not contain needed property", () => {
+describe('a DetailComment entities', () => {
+  it('should throw error when payload did not contain needed property', () => {
     // Arrange
     const payload = {
-      content: "Comment Content",
-      username: "uname",
+      content: 'Comment Content',
+      username: 'uname',
     };
 
     // Action and Assert
     expect(() => new DetailComment(payload)).toThrowError(
-      "DETAIL_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY"
+      'DETAIL_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY',
     );
   });
 
-  it("should throw error when payload did not meet data type specification", () => {
+  it('should throw error when payload did not meet data type specification', () => {
     // Arrange
     const payload = {
       id: 123,
-      content: "Correct content",
+      content: 'Correct content',
       username: {},
       date: true,
       is_deleted: [],
@@ -26,24 +26,24 @@ describe("a DetailComment entities", () => {
 
     // Action and Assert
     expect(() => new DetailComment(payload)).toThrowError(
-      "DETAIL_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION"
+      'DETAIL_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION',
     );
   });
 
-  it("should create detailComment object correctly", () => {
+  it('should create detailComment object correctly', () => {
     // Arrange
     const payload1 = {
-      id: "comment-123",
-      content: "Comment content",
-      username: "iamuser",
-      date: "2021-08-08T07:22:33.555Z",
+      id: 'comment-123',
+      content: 'Comment content',
+      username: 'iamuser',
+      date: '2021-08-08T07:22:33.555Z',
       is_deleted: false,
     };
     const payload2 = {
-      id: "comment-456",
-      content: "Comment content",
-      username: "iamotheruser",
-      date: "2023-08-08T07:22:33.555Z",
+      id: 'comment-456',
+      content: 'Comment content',
+      username: 'iamotheruser',
+      date: '2023-08-08T07:22:33.555Z',
       is_deleted: true,
     };
 
@@ -58,7 +58,7 @@ describe("a DetailComment entities", () => {
     expect(detailComment1.date).toEqual(payload1.date);
 
     expect(detailComment2.id).toEqual(payload2.id);
-    expect(detailComment2.content).toEqual("**komentar telah dihapus**");
+    expect(detailComment2.content).toEqual('**komentar telah dihapus**');
     expect(detailComment2.username).toEqual(payload2.username);
     expect(detailComment2.date).toEqual(payload2.date);
   });

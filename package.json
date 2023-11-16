@@ -1,7 +1,7 @@
 {
-  "name": "forum-api",
+  "name": "garuda-game",
   "version": "1.0.0",
-  "description": "",
+  "description": "Garuda Game (perusahaan fiktif) merupakan sebuah perusahaan paling sukses dalam menjalankan bisnis di bidang online game. Perusahaan tersebut memiliki ratusan game yang dimainkan oleh jutaan pengguna di seluruh dunia. Salah satu kunci keberhasilan Garuda Game adalah dekat dengan para pemainnya. Mereka berhasil membangun komunitas yang aktif.",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
@@ -13,7 +13,7 @@
     "migrate:test": "node-pg-migrate --envPath .env.test"
   },
   "keywords": [],
-  "author": "",
+  "author": "azizrosyid",
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^20.1.5",
@@ -26,9 +26,9 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
-    "eslint": "^7.30.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.4",
+    "eslint": "^8.53.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
     "jest": "^27.0.6",
     "node-pg-migrate": "^5.10.0",
     "nodemon": "^2.0.9"

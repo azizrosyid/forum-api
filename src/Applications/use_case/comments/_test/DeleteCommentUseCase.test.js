@@ -1,17 +1,17 @@
-const CommentRepository = require("../../../../Domains/comments/CommentRepository");
-const ThreadRepository = require("../../../../Domains/threads/ThreadRepository");
-const DeleteCommentUseCase = require("../DeleteCommentUseCase");
+const CommentRepository = require('../../../../Domains/comments/CommentRepository');
+const ThreadRepository = require('../../../../Domains/threads/ThreadRepository');
+const DeleteCommentUseCase = require('../DeleteCommentUseCase');
 
-describe("DeleteCommentUseCase", () => {
+describe('DeleteCommentUseCase', () => {
   /**
    * Menguji apakah use case mampu mengoskestrasikan langkah demi langkah dengan benar.
    */
-  it("should orchestrating the delete comment action correctly", async () => {
+  it('should orchestrating the delete comment action correctly', async () => {
     // Arrange
     const useCasePayload = {
-      id: "comment-123",
-      owner: "user-123",
-      thread_id: "thread-123",
+      id: 'comment-123',
+      owner: 'user-123',
+      thread_id: 'thread-123',
     };
 
     /** creating dependency of use case */
@@ -43,18 +43,18 @@ describe("DeleteCommentUseCase", () => {
     // Assert
     expect(success).toStrictEqual(true);
     expect(mockThreadRepository.verifyIsThreadExists).toBeCalledWith(
-      useCasePayload.thread_id
+      useCasePayload.thread_id,
     );
     expect(mockCommentRepository.verifyIsCommentExists).toBeCalledWith(
-      useCasePayload.id
+      useCasePayload.id,
     );
     expect(mockCommentRepository.verifyCommentOwner).toBeCalledWith(
       useCasePayload.id,
-      useCasePayload.owner
+      useCasePayload.owner,
     );
 
     expect(mockCommentRepository.deleteComment).toBeCalledWith(
-      useCasePayload.id
+      useCasePayload.id,
     );
   });
 });

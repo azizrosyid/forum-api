@@ -1,39 +1,39 @@
-const NewComment = require("../NewComment");
+const NewComment = require('../NewComment');
 
-describe("a NewComment entities", () => {
-  it("should throw error when payload did not contain needed property", () => {
+describe('a NewComment entities', () => {
+  it('should throw error when payload did not contain needed property', () => {
     // Arrange
     const payload = {
-      owner: "user-123",
-      thread_id: "thread-123",
-    }; //kurang content
+      owner: 'user-123',
+      thread_id: 'thread-123',
+    }; // kurang content
 
     // Action and Assert
     expect(() => new NewComment(payload)).toThrowError(
-      "NEW_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY"
+      'NEW_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY',
     );
   });
 
-  it("should throw error when payload did not meet data type specification", () => {
+  it('should throw error when payload did not meet data type specification', () => {
     // Arrange
     const payload = {
       owner: true,
       content: 123,
-      thread_id: "thread-valid",
+      thread_id: 'thread-valid',
     };
 
     // Action and Assert
     expect(() => new NewComment(payload)).toThrowError(
-      "NEW_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION"
+      'NEW_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION',
     );
   });
 
-  it("should create NewComment object correctly", () => {
+  it('should create NewComment object correctly', () => {
     // Arrange
     const payload = {
-      owner: "user-123",
-      content: "Comment Content",
-      thread_id: "thread-123",
+      owner: 'user-123',
+      content: 'Comment Content',
+      thread_id: 'thread-123',
     };
 
     // Action

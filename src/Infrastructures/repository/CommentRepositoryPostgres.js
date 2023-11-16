@@ -1,8 +1,8 @@
-const AuthorizationError = require("../../Commons/exceptions/AuthorizationError");
-const NotFoundError = require("../../Commons/exceptions/NotFoundError");
-const CommentRepository = require("../../Domains/comments/CommentRepository");
-const AddedComment = require("../../Domains/comments/entities/AddedComment");
-const DetailComment = require("../../Domains/comments/entities/DetailComment");
+const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
+const NotFoundError = require('../../Commons/exceptions/NotFoundError');
+const CommentRepository = require('../../Domains/comments/CommentRepository');
+const AddedComment = require('../../Domains/comments/entities/AddedComment');
+const DetailComment = require('../../Domains/comments/entities/DetailComment');
 
 class CommentRepositoryPostgres extends CommentRepository {
   constructor(pool, idGenerator) {
@@ -13,72 +13,57 @@ class CommentRepositoryPostgres extends CommentRepository {
 
   async addComment(newComment) {
     const { owner, content, thread_id } = newComment;
-
     const id = `comment-${this._idGenerator()}`;
     const date = new Date().toISOString();
 
-    const query = {
-      text: "INSERT INTO comments VALUES($1, $2, $3, $4, $5) RETURNING id, content, owner",
+    const result = await this._pool.query({
+      text: 'INSERT INTO comments VALUES($1, $2, $3, $4, $5) RETURNING id, content, owner',
       values: [id, owner, thread_id, content, date],
-    };
-
-    const result = await this._pool.query(query);
+    });
 
     return new AddedComment({ ...result.rows[0] });
   }
 
   async verifyCommentOwner(id, owner) {
-    const query = {
-      text: "SELECT * FROM comments WHERE id = $1 AND owner = $2",
+    const result = await this._pool.query({
+      text: 'SELECT * FROM comments WHERE id = $1 AND owner = $2',
       values: [id, owner],
-    };
-
-    const result = await this._pool.query(query);
+    });
 
     if (!result.rowCount) {
-      throw new AuthorizationError("owner tidak valid");
+      throw new AuthorizationError('Invalid owner');
     }
 
     return true;
   }
 
   async verifyIsCommentExists(id) {
-    const query = {
-      text: "SELECT * FROM comments WHERE id = $1",
+    const result = await this._pool.query({
+      text: 'SELECT * FROM comments WHERE id = $1',
       values: [id],
-    };
-
-    const result = await this._pool.query(query);
+    });
 
     if (!result.rowCount) {
-      throw new NotFoundError("comment tidak ada");
+      throw new NotFoundError('comment tidak ada');
     }
 
     return true;
   }
 
   async getCommentsByThreadId(threadId) {
-    const query = {
-      text: "SELECT c.id, c.content, c.date, c.is_deleted, u.username FROM comments c JOIN users u ON u.id = c.owner WHERE c.thread_id = $1",
+    const result = await this._pool.query({
+      text: 'SELECT c.id, c.content, c.date, c.is_deleted, u.username FROM comments c JOIN users u ON u.id = c.owner WHERE c.thread_id = $1',
       values: [threadId],
-    };
-
-    const result = await this._pool.query(query);
-
-    const comments = [];
-    result.rows.forEach((row) => {
-      comments.push(new DetailComment(row));
     });
 
-    return comments;
+    return result.rows.map((row) => new DetailComment(row));
   }
 
   async deleteComment(id) {
-    const query = {
-      text: "UPDATE comments SET is_deleted = true WHERE id = $1",
+    await this._pool.query({
+      text: 'UPDATE comments SET is_deleted = true WHERE id = $1',
       values: [id],
-    };
-    await this._pool.query(query);
+    });
   }
 }
 

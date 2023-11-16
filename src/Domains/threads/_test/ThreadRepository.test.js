@@ -1,21 +1,21 @@
-const ThreadRepository = require("../ThreadRepository");
+const ThreadRepository = require('../ThreadRepository');
 
-describe("ThreadRepository interface", () => {
-  it("should throw error when invoke abstract behavior", async () => {
+describe('ThreadRepository interface', () => {
+  it('should throw error when invoke abstract behavior', async () => {
     // Arrange
     const threadRepository = new ThreadRepository();
 
     // Action and Assert
     await expect(threadRepository.addThread({})).rejects.toThrowError(
-      "THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED"
+      'THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED',
     );
 
     await expect(
-      threadRepository.verifyIsThreadExists("thread-123")
-    ).rejects.toThrowError("THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+      threadRepository.verifyIsThreadExists('thread-123'),
+    ).rejects.toThrowError('THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED');
 
     await expect(
-      threadRepository.getThreadDetail("thread-123")
-    ).rejects.toThrowError("THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+      threadRepository.getThreadDetail('thread-123'),
+    ).rejects.toThrowError('THREAD_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   });
 });
